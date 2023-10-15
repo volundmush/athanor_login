@@ -46,7 +46,7 @@ with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
 
 # setup the package
 setup(
-    name="athanor_theme",
+    name="athanor_login",
     version="0.1.0",
     author="VolundMush",
     maintainer="VolundMush",
