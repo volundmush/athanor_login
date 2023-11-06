@@ -3,7 +3,7 @@ from django.db import models
 
 class Host(models.Model):
     ip = models.GenericIPAddressField(unique=True)
-    hostname = models.CharField(max_length=255, unique=True)
+    hostname = models.CharField(max_length=255, null=True)
 
 
 class Record(models.Model):
