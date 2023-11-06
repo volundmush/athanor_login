@@ -1,22 +1,20 @@
-# Athanor - Some hammering for Evennia
-
-## WARNING: Early Alpha!
-Pardon our dust, this project is still in its infancy. It runs, but if you're not a developer intent on sprucing up, it may not have much for you just yet.
+# Athanor Login
 
 ## CONTACT INFO
+
 **Name:** Volund
 
 **Email:** volundmush@gmail.com
 
 **PayPal:** volundmush@gmail.com
 
-**Discord:** Volund#1206  
+**Discord:** VolundMush
 
 **Discord Channel:** https://discord.gg/Sxuz3QNU8U
 
 **Patreon:** https://www.patreon.com/volund
 
-**Home Repository:** https://github.com/volundmush/mudforge
+**Home Repository:** https://github.com/volundmush/athanor_factions
 
 ## TERMS AND CONDITIONS
 
@@ -24,47 +22,35 @@ MIT license. In short: go nuts, but give credit where credit is due.
 
 Please see the included LICENSE.txt for the legalese.
 
-## INTRO
-MUDs and their brethren are the precursors to our modern MMORPGs, and are still a blast to play - in addition to their other uses, such as educative game design: all the game logic, none of the graphics!
+## DETAILS
 
-Writing one from scratch isn't easy though, so this library aims to take away a great deal of the boilerplate pain.
-
-MudForge provides a dual-process Application framework and a launcher, where each and every piece of the program is meant to be inherited and overloaded by another developer's efforts. The MudGate process holds onto clients and communicates with the MudForge process over local private networking, allowing the game to reboot - and apply updates - without disconnecting clients.
-
-This library isn't a MUD. It's not a MUSH, or a MUX, or a MOO, or MUCK on its own, though. In truth, it doesn't DO very much. That's a good thing! See, it doesn't make (many) decisions for the developers it's meant for, making it easy to build virtually ANY kind of text-based multiplayer game atop of it.
+This is a Plugin for [Athanor](https://github.com/volundmush/athanor) which provides login tracking services.
 
 ## FEATURES
-  * Extensive Telnet Support
-  * Extendable Protocol Framework
-  * Amazing ANSI and other Text Formatting powered by [Rich](https://github.com/willmcgugan/rich)
-
-## UNFINISHED FEATURES
-  * TLS Support
-  * WebSocket Support
-  * SSH Support
-  * Integrated WebClient
+* Associate User accounts with Hostnames and IP Addresses. Keep track of who's logging in from where.
+* Investigate multi-accounting and other suspicious activity.
 
 
 ## OKAY, BUT HOW DO I USE IT?
 Glad you asked!
 
-You can install MudForge using ```pip install git+git://github.com/volundmush/mudforge```
+If you haven't already, you'll need to install Evennia and Athanor. Follow the instructions at [Athanor](https://github.com/volundmush/athanor) about that.
 
-This adds the `mudforge` command to your shell. use `mudforge --help` to see what it can do.
+Then, you can install athanor_login using ```pip install git+git://github.com/volundmush/athanor_login```
 
-The way that athanor and projects built on it work:
+Once installed, the plugin must be added to your athanor.init() call in settings.py. It should look something like this:
 
-`mudforge --init <folder>` will create a folder that contains your game's configuration, save files, database, and possibly some code. Enter the folder and use `mudforge start` and `mudforge stop` to control it. you can use `--app mudgate` or `--app mudforge` to start/stop specific programs.
+```python
+import athanor as _athanor, sys as _sys
+_athanor.init(_sys.modules[__name__], plugins=[
+    "athanor_factions",
+    "athanor_login"
+])
+```
 
-Examine the profile folder's .yaml files to learn how to change the server's configuration around.
+Afterwards, you'll need to run evennia migrate athanor_login to create the database tables.
 
-Again, though, it doesn't do much...
-
-## OKAAAAAAY, SO HOW DO I -REALLY- USE IT?
-The true power of MudForge is in its extendability. Because you can replace any and all classes the program uses for its startup routines, and the launcher itself is a class, it's easy-peasy to create a whole new library with its own command-based launcher and game template that the launcher creates a skeleton of with `--init <folder>`.
-
-Not gonna lie though - that does need some Python skills.
-
+Once that's done, reload Evennia and the commands should be accessible.
 
 ## FAQ 
   __Q:__ This is cool! How can I help?  
@@ -73,7 +59,10 @@ Not gonna lie though - that does need some Python skills.
   __Q:__ I found a bug! What do I do?  
   __A:__ Post it on this GitHub's Issues tracker. I'll see what I can do when I have time. ... or you can try to fix it yourself and submit a Pull Request. That's cool too.
 
+  __Q:__ The heck is an Athanor? Why name something this?
+  __A:__ An Athanor is a furnace used in alchemy. It's a place where things are forged and refined. I thought it was a fitting name for a library that's meant to be used to build other things.
+
 ## Special Thanks
-  * The Evennia Project. A bit of code's yoinked from them, and the dual-process idea for Portal+Server is definitely from them.
+  * The Evennia Project.
   * All of my Patrons on Patreon.
   * Anyone who contributes to this project or my other ones.
