@@ -9,7 +9,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ("objects", "0013_defaultobject_alter_objectdb_id_defaultcharacter_and_more"),
     ]
 
     operations = [
