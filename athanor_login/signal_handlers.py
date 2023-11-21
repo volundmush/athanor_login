@@ -9,23 +9,23 @@ def get_client_ip(request):
 
 def django_login_success(sender, **kwargs):
     if not (user := kwargs.get("user", dict())):
-        pass
+        return
     if not (request := kwargs.get("request", None)):
-        pass
+        return
     if not (ip := get_client_ip(request)):
-        pass
+        return
     _login_record(user, ip)
 
 
 def django_login_fail(sender, **kwargs):
     if not (request := kwargs.get("request", None)):
-        pass
+        return
     if not (ip := get_client_ip(request)):
-        pass
+        return
     if not (credentials := kwargs.get("credentials", dict())):
-        pass
+        return
     if not (username := credentials.get("username", None)):
-        pass
+        return
     from evennia import DefaultAccount
     if not (account := DefaultAccount.objects.filter_family(username__iexact=username).first()):
         pass
